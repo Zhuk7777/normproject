@@ -21,6 +21,29 @@ class _HomeState extends State<Home> {
     //todo_list.addAll(['Купить молоко', 'Помыть посуду', 'Купить картошку']);
   //}
 
+  void _menuOpen()
+  {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder:(BuildContext context) {
+      return Scaffold
+        (
+        appBar: AppBar(title: Text('Меню'),backgroundColor: Colors.redAccent,),
+        body:Row(
+          children:[
+            ElevatedButton(onPressed: () {
+              Navigator.pop(context);//позволяет сначала скрыть меню
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            },
+              child:Text('На главную'),
+            ),
+            Padding(padding:EdgeInsets.only(left:15)),//отступ
+            Text('Наше простое меню'),
+          ]
+        ),
+      );
+      })
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +53,12 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.redAccent,
         title: Text('Список дел'),
         centerTitle: true,
+        actions:[
+          IconButton(
+            icon:Icon(Icons.menu_outlined),
+            onPressed: _menuOpen,//метод, который сами выше реализовали
+          ),
+        ]
       ),
       body: ListView.builder(
           itemCount: todo_list.length, //размер списка
